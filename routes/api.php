@@ -11,6 +11,6 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
     Route::post('save-recipe', 'RecipeController@store');
-    Route::get('recipe/{email}', 'RecipeController@getSavedRecipes');
+    Route::get('recipe', 'RecipeController@getSavedRecipes');
     Route::post('delete-recipe', 'RecipeController@destroy');
 });
