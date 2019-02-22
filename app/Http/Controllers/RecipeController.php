@@ -17,12 +17,6 @@ class RecipeController extends Controller
         );
     }
 
-    public function index()
-    {
-        return 'hello';
-        //RecipeResource::collection(Recipe::all());
-    }
-
     public function getSavedRecipes($urlParams)
     {
         return RecipeResource::collection(Recipe::all());
@@ -55,10 +49,9 @@ class RecipeController extends Controller
         return new RecipeResource($recipe);
     }
 
-    public function destroy($urlParams)
+    public function destroy(Request $request)
     {
-        $urlParams->delete();
-
-        return response()->json(null, 204);
+        Recipe::where('id', $request->id)->delete();
+        return RecipeResource::collection(recipe::all());
     }
 }
