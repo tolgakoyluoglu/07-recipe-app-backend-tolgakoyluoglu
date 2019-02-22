@@ -12,4 +12,5 @@ Route::group([
     Route::post('me', 'AuthController@me');
     Route::post('save-recipe', 'RecipeController@store');
     Route::get('recipe/{email}', 'RecipeController@getSavedRecipes');
+    Route::delete('delete-recipe', 'RecipeController@destroy');
 });

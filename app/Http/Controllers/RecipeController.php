@@ -12,7 +12,7 @@ class RecipeController extends Controller
     {
         $this->middleware('auth:api')->except(
             [
-                'index', 'show', 'get', 'store', 'getSavedRecipes'
+                'index', 'show', 'get', 'store', 'getSavedRecipes', 'destroy'
             ]
         );
     }
@@ -25,17 +25,9 @@ class RecipeController extends Controller
 
     public function getSavedRecipes($urlParams)
     {
-        $email = $urlParams['email'];
-        $collection = RecipeResource::collection(Recipe::all());
-        foreach ($collection as $key => $value) {
-            if ($key == $email) {
-                //
-            }
-        }
+        return RecipeResource::collection(Recipe::all());
     }
     
-    
-
     public function store(Request $request)
     {
         $recipe = Recipe::create(
@@ -51,11 +43,6 @@ class RecipeController extends Controller
         return new RecipeResource($recipe);
     }
 
-    public function show(Recipe $recipe)
-    {
-        return new RecipeResource($recipe);
-    }
-
     public function update(Request $request, Recipe $recipe)
     {
         // check if currently authenticated user is the owner of the book
@@ -68,9 +55,9 @@ class RecipeController extends Controller
         return new RecipeResource($recipe);
     }
 
-    public function destroy(Recipe $recipe)
+    public function destroy($urlParams)
     {
-        $recipe->delete();
+        $urlParams->delete();
 
         return response()->json(null, 204);
     }
