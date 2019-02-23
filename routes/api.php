@@ -13,4 +13,5 @@ Route::group([
     Route::post('save-recipe', 'RecipeController@store');
     Route::get('recipe', 'RecipeController@getSavedRecipes');
     Route::post('delete-recipe', 'RecipeController@destroy');
+    Route::put('update-recipe', 'RecipeController@updateRecipe');
 });

@@ -12,7 +12,7 @@ class RecipeController extends Controller
     {
         $this->middleware('auth:api')->except(
             [
-                'index', 'show', 'get', 'store', 'getSavedRecipes', 'destroy'
+                'store', 'getSavedRecipes', 'destroy', 'updateRecipe'
             ]
         );
     }
@@ -37,16 +37,10 @@ class RecipeController extends Controller
         return new RecipeResource($recipe);
     }
 
-    public function update(Request $request, Recipe $recipe)
+    public function updateRecipe(Request $request)
     {
-        // check if currently authenticated user is the owner of the book
-        if ($request->user()->id !== $recipe->user_id) {
-            return response()->json(['error' => 'You can only edit your own books.'], 403);
-        }
-
-        $recipe->update($request->only(['label', 'ingredientLines']));
-
-        return new RecipeResource($recipe);
+        
+       Recipe::where('id', $request->id)->update($request->all());
     }
 
     public function destroy(Request $request)
