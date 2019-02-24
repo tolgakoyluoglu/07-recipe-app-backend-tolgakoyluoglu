@@ -39,8 +39,7 @@ class RecipeController extends Controller
 
     public function updateRecipe(Request $request)
     {
-        
-       Recipe::where('id', $request->id)->update($request->all());
+        Recipe::where('id', $request->id)->update($request->all());
     }
 
     public function destroy(Request $request)
