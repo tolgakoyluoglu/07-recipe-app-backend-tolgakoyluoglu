@@ -24,17 +24,25 @@ class RecipeController extends Controller
     
     public function store(Request $request)
     {
-        $recipe = Recipe::create(
-            [
-                'email' => $request->email,
-                'label' => $request->label,
-                'image' => $request->image,
-                'calories' => $request->calories,
-                'healthLabels' => $request->healthLabels,
-                'ingredientLines' => $request->ingredientLines
-            ]
-        );
-        return new RecipeResource($recipe);
+   
+        $recipeExist = Recipe::where('label','=', $request->label)->where('email', '=', $request->email)->first();
+        
+        if ($recipeExist) {
+            return response('This recipe already exist for this user!', 401);
+           
+        } else {
+            $recipe = Recipe::create(
+                [
+                    'email' => $request->email,
+                    'label' => $request->label,
+                    'image' => $request->image,
+                    'calories' => $request->calories,
+                    'healthLabels' => $request->healthLabels,
+                    'ingredientLines' => $request->ingredientLines
+                    ]
+                );
+            return new RecipeResource($recipe);
+            }
     }
 
     public function updateRecipe(Request $request)
